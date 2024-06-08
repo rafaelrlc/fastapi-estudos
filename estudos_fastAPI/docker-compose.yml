@@ -1,0 +1,27 @@
+services:
+  pgadmin4:
+    image: dpage/pgadmin4
+    container_name: estudosfastapi_pgadmin
+    environment:
+      - PGADMIN_DEFAULT
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "89:80"
+    networks:
+      - postgres-network
+  postgres:
+    image: postgres:14-alpine
+    container_name: estudosfastapi_postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=estudos_fastapi
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres-network
+    volumes:
+      - $HOME/data/postgres:/var/lib/postgresql/data
+networks:
+  postgres-network:
+    driver: bridge
